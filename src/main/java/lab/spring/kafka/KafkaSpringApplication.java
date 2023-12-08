@@ -26,7 +26,12 @@ public class KafkaSpringApplication implements CommandLineRunner {
     // Envia mensaje de manera sincrona
     // throws ExecutionException, InterruptedException, TimeoutException
     // simpleProducerService.sendMessage("test-topic", "Application started").get(100, TimeUnit.MILLISECONDS);
-    SimpleProducerCallback producerCallback = new SimpleProducerCallback();
-    simpleProducerService.sendMessageWithCallback("test-topic", "Application started", producerCallback);
+
+//    // Envia mensaje con callback
+//    SimpleProducerCallback producerCallback = new SimpleProducerCallback();
+//    simpleProducerService.sendMessageWithCallback("test-topic", "Application started", producerCallback);
+
+    // Envia 100 mensajes
+    simpleProducerService.sendTestData("test-topic", "key", "message nr", 100);
   }
 }
