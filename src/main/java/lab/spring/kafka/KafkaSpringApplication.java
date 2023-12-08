@@ -1,6 +1,7 @@
 package lab.spring.kafka;
 
 import lab.spring.kafka.services.producers.SimpleProducerService;
+import lab.spring.kafka.services.producers.callbacks.SimpleProducerCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,7 @@ public class KafkaSpringApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    simpleProducerService.sendMessage("test-topic", "Application started");
+    SimpleProducerCallback producerCallback = new SimpleProducerCallback();
+    simpleProducerService.sendMessageWithCallback("test-topic", "Application started", producerCallback);
   }
 }
