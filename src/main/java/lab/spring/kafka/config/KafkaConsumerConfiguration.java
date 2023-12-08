@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaConfiguration {
+public class KafkaConsumerConfiguration {
 
   public Map<String, Object> consumerProperties() {
     Map<String, Object> props = new HashMap<>();
