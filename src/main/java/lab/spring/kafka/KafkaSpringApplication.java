@@ -7,6 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 @SpringBootApplication
 public class KafkaSpringApplication implements CommandLineRunner {
 
@@ -18,7 +22,10 @@ public class KafkaSpringApplication implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... args) throws Exception {
+  public void run(String... args) {
+    // Envia mensaje de manera sincrona
+    // throws ExecutionException, InterruptedException, TimeoutException
+    // simpleProducerService.sendMessage("test-topic", "Application started").get(100, TimeUnit.MILLISECONDS);
     SimpleProducerCallback producerCallback = new SimpleProducerCallback();
     simpleProducerService.sendMessageWithCallback("test-topic", "Application started", producerCallback);
   }

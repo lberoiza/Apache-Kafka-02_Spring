@@ -20,13 +20,13 @@ public class SimpleProducerService {
   }
 
 
-  public void sendMessage(String topic, String message) {
-    kafkaProducer.send(topic, message);
+  public CompletableFuture<SendResult<String, String>> sendMessage(String topic, String message) {
+    return kafkaProducer.send(topic, message);
   }
 
   public void sendMessageWithCallback(String topic, String message, BiConsumer<? super SendResult<String, String>,
       ? super Throwable> lambda) {
-    CompletableFuture<SendResult<String, String>> futureResult = kafkaProducer.send(topic, message);
+    CompletableFuture<SendResult<String, String>> futureResult = sendMessage(topic, message);
     futureResult.whenComplete(lambda);
   }
 
