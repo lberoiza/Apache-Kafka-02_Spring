@@ -33,11 +33,20 @@ public class KafkaConsumerConfiguration {
     return new DefaultKafkaConsumerFactory<>(consumerProperties());
   }
 
-  @Bean
+  @Bean(name = "listenerContainerFactory")
   public ConcurrentKafkaListenerContainerFactory<String, String> listenerContainerFactory() {
     ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
     factory.setConsumerFactory(consumerFactory());
     return factory;
   }
+
+  @Bean(name = "listenerBatchContainerFactory")
+  public ConcurrentKafkaListenerContainerFactory<String, String> listenerBatchContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(consumerFactory());
+    factory.setBatchListener(true);
+    return factory;
+  }
+
 
 }
