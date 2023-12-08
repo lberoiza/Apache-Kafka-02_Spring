@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -12,7 +11,7 @@ import java.util.function.BiConsumer;
 @Service
 public class SimpleProducerService {
 
-  private KafkaTemplate<String, String> kafkaProducer;
+  private final KafkaTemplate<String, String> kafkaProducer;
 
   @Autowired
   public SimpleProducerService(KafkaTemplate<String, String> kafkaProducer) {

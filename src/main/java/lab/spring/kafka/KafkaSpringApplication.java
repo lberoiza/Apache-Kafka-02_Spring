@@ -1,15 +1,11 @@
 package lab.spring.kafka;
 
 import lab.spring.kafka.services.producers.SimpleProducerService;
-import lab.spring.kafka.services.producers.callbacks.SimpleProducerCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 @SpringBootApplication
 public class KafkaSpringApplication implements CommandLineRunner {

@@ -1,5 +1,6 @@
 package lab.spring.kafka.services.consumers;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,10 @@ public class BatchConsumerService {
           "max.poll.records=10"
       }
   )
-  public void listen(List<String> messages) {
+  public void listen(List<ConsumerRecord<String, String>> consumerRecords) {
     log.info("Starting Received Messages");
-    for(String msg : messages) {
-      log.info("Batch Consumer: {}", msg);
+    for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+      log.info("Batch Consumer: offset={}, partition={}, key={}, value={}", consumerRecord.offset(), consumerRecord.partition(), consumerRecord.key(), consumerRecord.value());
     }
     log.info("Messages Received");
   }
