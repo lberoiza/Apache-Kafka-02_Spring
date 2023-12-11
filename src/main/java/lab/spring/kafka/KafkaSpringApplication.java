@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeoutException;
 
 
 @SpringBootApplication
+@EnableScheduling
 public class KafkaSpringApplication implements CommandLineRunner {
 
   @Autowired
@@ -21,10 +23,6 @@ public class KafkaSpringApplication implements CommandLineRunner {
 
   @Value("${kafka.services.simple.topic}")
   private String simpleTopic;
-
-  @Value("${kafka.services.batch.topic}")
-  private String batchTopic;
-
 
   public static void main(String[] args) {
     SpringApplication.run(KafkaSpringApplication.class, args);
@@ -39,8 +37,5 @@ public class KafkaSpringApplication implements CommandLineRunner {
     // Envia mensaje con callback
     SimpleProducerCallback producerCallback = new SimpleProducerCallback();
     simpleProducerService.sendMessageWithCallback(simpleTopic, "Application started callback", producerCallback);
-
-    // Envia 100 mensajes
-    simpleProducerService.sendTestData(batchTopic, "key", "message nr", 100);
   }
 }
