@@ -13,7 +13,7 @@ public class BatchConsumerService {
 
   @KafkaListener(
       topics = "${kafka.topic.test-topic}",
-      groupId = "${kafka.topic.test-groupId}",
+      groupId = "batch-consumer",
       containerFactory = "listenerBatchContainerFactory",
       properties = {
           "max.poll.interval.ms=4000",
