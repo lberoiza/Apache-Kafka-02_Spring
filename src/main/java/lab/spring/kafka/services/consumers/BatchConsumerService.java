@@ -12,6 +12,8 @@ public class BatchConsumerService {
   private static final Logger log = org.slf4j.LoggerFactory.getLogger(BatchConsumerService.class);
 
   @KafkaListener(
+      id = "${kafka.services.batch.id}",
+      autoStartup = "${kafka.services.batch.autoStartup}",
       topics = "${kafka.services.batch.topic}",
       groupId = "${kafka.services.batch.groupId}",
       containerFactory = "listenerBatchContainerFactory",
