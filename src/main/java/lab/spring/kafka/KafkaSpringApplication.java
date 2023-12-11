@@ -34,11 +34,11 @@ public class KafkaSpringApplication implements CommandLineRunner {
   public void run(String... args) throws ExecutionException, InterruptedException, TimeoutException {
     // Envia mensaje de manera sincrona
     // throws ExecutionException, InterruptedException, TimeoutException
-     simpleProducerService.sendMessage(simpleTopic, "Application started").get(100, TimeUnit.MILLISECONDS);
+     simpleProducerService.sendMessage(simpleTopic, "Application started simple").get(100, TimeUnit.MILLISECONDS);
 
     // Envia mensaje con callback
     SimpleProducerCallback producerCallback = new SimpleProducerCallback();
-    simpleProducerService.sendMessageWithCallback(simpleTopic, "Application started", producerCallback);
+    simpleProducerService.sendMessageWithCallback(simpleTopic, "Application started callback", producerCallback);
 
     // Envia 100 mensajes
     simpleProducerService.sendTestData(batchTopic, "key", "message nr", 100);
