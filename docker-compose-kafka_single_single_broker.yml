@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  zookeeper:
+    image: ubuntu/zookeeper:latest
+    container_name: kafka-zookeeper
+    restart: unless-stopped
+    ports:
+      - "2181:2181"
+    environment:
+      TZ: UTC
+    volumes:
+      - kafka-logs:/tmp
+
+  broker1:
+    image: ubuntu/kafka:latest
+    container_name: kafka-broker1
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      TZ: UTC
+      ZOOKEEPER_HOST: kafka-zookeeper
+    volumes:
+      - kafka-logs:/tmp
+
+volumes:
+  kafka-logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./logs
+
+
