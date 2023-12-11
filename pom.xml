@@ -36,6 +36,14 @@
       <artifactId>spring-kafka-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+  <!--  Librería para el uso de métricas que permitan
+    Saber como se comporta la aplicacion al enviar mensajes -->
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>

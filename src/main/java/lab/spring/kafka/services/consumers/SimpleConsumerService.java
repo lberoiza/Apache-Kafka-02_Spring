@@ -13,7 +13,7 @@ import java.util.Objects;
 public class SimpleConsumerService {
   private static final Logger log = org.slf4j.LoggerFactory.getLogger(SimpleConsumerService.class);
 
-  private KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
+  private final KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
 
   @Value("${kafka.services.batch.id}")
   private String batchId;
