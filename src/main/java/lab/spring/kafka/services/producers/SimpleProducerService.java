@@ -21,7 +21,7 @@ public class SimpleProducerService {
 
   public void sendTestData(String topic, String key, String message, int nrOfMessages) {
     for(int i = 0; i < nrOfMessages; i++) {
-      kafkaProducer.send(topic, key, String.format("%s-%d", message, i));
+      kafkaProducer.send(topic, key+i, String.format("%s-%d", message, i));
     }
   }
 
