@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 public class SimpleConsumerService {
   private static final Logger log = org.slf4j.LoggerFactory.getLogger(SimpleConsumerService.class);
 
-  @KafkaListener(topics = "${kafka.topic.test-topic}",
-      groupId = "simple-consumer",
+  @KafkaListener(topics = "${kafka.services.simple.topic}",
+      groupId = "${kafka.services.simple.groupId}",
       containerFactory = "listenerContainerFactory")
   public void listen(String message) {
     log.info("Simple Consumer Message: {}", message);

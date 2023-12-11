@@ -1,6 +1,7 @@
 package lab.spring.kafka.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -12,6 +13,10 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConsumerConfiguration {
+
+
+  @Value("${kafka.services.batch.concurrency}")
+  private Integer batchConcurrency;
 
   public Map<String, Object> consumerProperties() {
     Map<String, Object> props = new HashMap<>();
@@ -45,6 +50,7 @@ public class KafkaConsumerConfiguration {
     ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
     factory.setConsumerFactory(consumerFactory());
     factory.setBatchListener(true);
+    factory.setConcurrency(batchConcurrency);
     return factory;
   }
 

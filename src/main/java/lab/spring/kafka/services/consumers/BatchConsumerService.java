@@ -12,8 +12,8 @@ public class BatchConsumerService {
   private static final Logger log = org.slf4j.LoggerFactory.getLogger(BatchConsumerService.class);
 
   @KafkaListener(
-      topics = "${kafka.topic.test-topic}",
-      groupId = "batch-consumer",
+      topics = "${kafka.services.batch.topic}",
+      groupId = "${kafka.services.batch.groupId}",
       containerFactory = "listenerBatchContainerFactory",
       properties = {
           "max.poll.interval.ms=4000",
