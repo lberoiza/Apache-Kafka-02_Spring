@@ -15,7 +15,6 @@ public class MeterRegistryServer {
   private boolean scheduleMessagesEnabled;
 
 
-
   private final MeterRegistry meterRegistry;
 
   @Autowired
@@ -23,10 +22,15 @@ public class MeterRegistryServer {
     this.meterRegistry = meterRegistry;
   }
 
-  public void printMetrics() {
+  public double getTotalMessages() {
     if(scheduleMessagesEnabled){
-      double totalMessages = meterRegistry.get("kafka.producer.record.send.total").functionCounter().count();
-      log.info("Total Messages sended: {}", totalMessages);
+      return meterRegistry.get("kafka.producer.record.send.total").functionCounter().count();
     }
+    return 0;
+  }
+
+
+  public void printMetrics() {
+      log.info("Total Messages sended: {}", getTotalMessages());
   }
 }
