@@ -18,9 +18,12 @@ public class KafkaConsumerConfiguration {
   @Value("${kafka.services.batch.concurrency}")
   private Integer batchConcurrency;
 
+  @Value("${kafka.bootstrap_servers_config}")
+  String bootstrapServersConfig;
+
   public Map<String, Object> consumerProperties() {
     Map<String, Object> props = new HashMap<>();
-    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServersConfig);
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
     props.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group");
