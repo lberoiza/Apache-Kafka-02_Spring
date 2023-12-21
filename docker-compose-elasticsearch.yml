@@ -18,7 +18,7 @@ services:
     volumes:
       - data01:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - "9200:9200"
     networks:
       - elastic
   es02:
@@ -63,8 +63,7 @@ services:
 
   kibana:
     depends_on:
-      es01:
-        condition: service_healthy
+      - es01
     image: docker.elastic.co/kibana/kibana:8.11.3
     container_name: kibana
     labels:
