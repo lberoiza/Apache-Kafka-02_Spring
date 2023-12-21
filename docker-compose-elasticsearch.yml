@@ -104,6 +104,10 @@ volumes:
     driver: local
   data03:
     driver: local
+  certs:
+    driver: local
+  kibanadata:
+    driver: local
 
 networks:
   elastic:
