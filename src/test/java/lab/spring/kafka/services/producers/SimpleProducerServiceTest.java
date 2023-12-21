@@ -1,10 +1,8 @@
 package lab.spring.kafka.services.producers;
 
-import com.github.javafaker.Faker;
+import lab.spring.kafka.factories.PersonDataFactory;
 import lab.spring.kafka.testmodels.PersonData;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,28 +18,14 @@ class SimpleProducerServiceTest {
   @Autowired
   SimpleProducerService simpleProducerService;
 
-  Faker dataFaker;
-
   @Value("${test.simpleproducerservice.topic}")
   private String simpleTestTopic;
-
-
-  @BeforeEach
-  public void setUp() {
-    dataFaker = new Faker();
-  }
 
 
   @Test
   void sendMessage() throws ExecutionException, InterruptedException {
 
-    PersonData personData = new PersonData();
-    personData.setFirstName(dataFaker.name().firstName());
-    personData.setLastName(dataFaker.name().lastName());
-    personData.setAddress(dataFaker.address().fullAddress());
-    personData.setPhoneNumber(dataFaker.phoneNumber().phoneNumber());
-    personData.setEmail(dataFaker.internet().emailAddress());
-
+    PersonData personData = PersonDataFactory.createPersonData();
     ProducerRecord<String, String> producerRecord = simpleProducerService
         .sendMessage(simpleTestTopic, personData.getFirstName(), personData.toJson())
         .get()
@@ -58,13 +42,7 @@ class SimpleProducerServiceTest {
   @Test
   void sendMessageCallback() {
 
-    PersonData personData = new PersonData();
-    personData.setFirstName(dataFaker.name().firstName());
-    personData.setLastName(dataFaker.name().lastName());
-    personData.setAddress(dataFaker.address().fullAddress());
-    personData.setPhoneNumber(dataFaker.phoneNumber().phoneNumber());
-    personData.setEmail(dataFaker.internet().emailAddress());
-
+    PersonData personData = PersonDataFactory.createPersonData();
     simpleProducerService
         .sendMessageWithCallback(
             simpleTestTopic,
