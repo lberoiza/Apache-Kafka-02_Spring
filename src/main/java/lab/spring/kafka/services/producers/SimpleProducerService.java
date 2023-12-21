@@ -28,6 +28,10 @@ public class SimpleProducerService {
   }
 
 
+  public CompletableFuture<SendResult<String, String>> sendMessage(String topic, String key, String message) {
+    return kafkaProducer.send(topic, key, message);
+  }
+
   public CompletableFuture<SendResult<String, String>> sendMessage(String topic, String message) {
     return kafkaProducer.send(topic, message);
   }
@@ -38,11 +42,17 @@ public class SimpleProducerService {
     futureResult.whenComplete(lambda);
   }
 
+  public void sendMessageWithCallback(String topic, String key, String message, BiConsumer<? super SendResult<String, String>,
+      ? super Throwable> lambda) {
+    CompletableFuture<SendResult<String, String>> futureResult = sendMessage(topic, message);
+    futureResult.whenComplete(lambda);
+  }
 
-  @Scheduled(
-      fixedDelayString = "${kafka.service.batch.fixedDelay}",
-      initialDelayString = "${kafka.service.batch.initialDelay}"
-  )
+
+//  @Scheduled(
+//      fixedDelayString = "${kafka.service.batch.fixedDelay}",
+//      initialDelayString = "${kafka.service.batch.initialDelay}"
+//  )
   public void sendSimpleMessage() {
     // Envia 100 mensajes
     if (scheduleMessagesEnabled) {

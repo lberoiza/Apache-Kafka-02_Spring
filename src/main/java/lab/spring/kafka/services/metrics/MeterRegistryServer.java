@@ -24,10 +24,10 @@ public class MeterRegistryServer {
     this.meterRegistry = meterRegistry;
   }
 
-  @Scheduled(
-      fixedDelayString = "${kafka.service.meterregistry.fixedDelay}",
-      initialDelayString = "${kafka.service.meterregistry.initialDelay}"
-  )
+//  @Scheduled(
+//      fixedDelayString = "${kafka.service.meterregistry.fixedDelay}",
+//      initialDelayString = "${kafka.service.meterregistry.initialDelay}"
+//  )
   public void printMetrics() {
     if(scheduleMessagesEnabled){
       double totalMessages = meterRegistry.get("kafka.producer.record.send.total").functionCounter().count();
