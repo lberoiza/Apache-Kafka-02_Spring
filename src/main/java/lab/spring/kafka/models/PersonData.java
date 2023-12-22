@@ -1,4 +1,4 @@
-package lab.spring.kafka.testmodels;
+package lab.spring.kafka.models;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
