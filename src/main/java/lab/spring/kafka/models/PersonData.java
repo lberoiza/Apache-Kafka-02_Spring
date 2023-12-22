@@ -6,14 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 @Getter
 @Setter
 @Slf4j
+@Document(indexName = "persondata", createIndex = true)
 public class PersonData {
 
-
-
+  @Id
+  private String id;
   private String firstName;
   private String lastName;
   private String email;
