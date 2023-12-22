@@ -1,5 +1,7 @@
 package lab.spring.kafka;
 
+import lab.spring.kafka.models.PersonData;
+import lab.spring.kafka.services.elasticsearch.ElasticSearchPersonDataService;
 import lab.spring.kafka.services.producers.SimpleProducerService;
 import lab.spring.kafka.services.producers.callbacks.SimpleProducerCallback;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ import java.util.concurrent.TimeoutException;
 @SpringBootApplication
 @EnableScheduling
 public class KafkaSpringApplication implements CommandLineRunner {
+
+
+  @Autowired
+  ElasticSearchPersonDataService elasticSearchPersonDataService;
 
   @Autowired
   SimpleProducerService simpleProducerService;
@@ -37,5 +43,15 @@ public class KafkaSpringApplication implements CommandLineRunner {
     // Envia mensaje con callback
     SimpleProducerCallback producerCallback = new SimpleProducerCallback();
     simpleProducerService.sendMessageWithCallback(simpleTopic, "Application started callback", producerCallback);
+
+
+    PersonData personData = new PersonData();
+    personData.setFirstName("Juan");
+    personData.setLastName("Perez");
+    personData.setEmail("test@test.com");
+    personData.setPhoneNumber("1234567890");
+    personData.setId("2");
+    elasticSearchPersonDataService.save(personData);
+
   }
 }
