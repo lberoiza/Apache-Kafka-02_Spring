@@ -1,6 +1,6 @@
 package lab.spring.kafka.services.elasticsearch;
 
-import lab.spring.kafka.factories.PersonDataFactory;
+import lab.spring.kafka.utils.datafactories.PersonDataFactory;
 import lab.spring.kafka.models.PersonData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

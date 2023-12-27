@@ -1,6 +1,6 @@
 package lab.spring.kafka.services.metrics;
 
-import lab.spring.kafka.factories.PersonDataFactory;
+import lab.spring.kafka.utils.datafactories.PersonDataFactory;
 import lab.spring.kafka.services.producers.SimpleProducerService;
 import lab.spring.kafka.models.PersonData;
 import lombok.extern.slf4j.Slf4j;

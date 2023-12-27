@@ -1,4 +1,4 @@
-package lab.spring.kafka.factories;
+package lab.spring.kafka.utils.datafactories;
 
 import com.github.javafaker.Faker;
 import lab.spring.kafka.models.PersonData;
@@ -29,4 +29,5 @@ public class PersonDataFactory {
         dataFaker.internet().domainName().toLowerCase()
     );
   }
+
 }

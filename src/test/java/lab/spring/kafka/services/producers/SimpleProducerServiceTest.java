@@ -1,6 +1,6 @@
 package lab.spring.kafka.services.producers;
 
-import lab.spring.kafka.factories.PersonDataFactory;
+import lab.spring.kafka.utils.datafactories.PersonDataFactory;
 import lab.spring.kafka.models.PersonData;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.jupiter.api.Test;
