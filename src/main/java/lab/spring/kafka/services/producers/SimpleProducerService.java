@@ -1,19 +1,30 @@
 package lab.spring.kafka.services.producers;
 
+import lab.spring.kafka.models.PersonData;
+import lab.spring.kafka.utils.datafactories.PersonDataFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
+@Slf4j
 @Service
 public class SimpleProducerService {
 
   @Value("${kafka.services.batch.topic}")
   private String batchTopic;
+
+  @Value("${elasticsearch.topic.personData}")
+  private String personDataTopic;
+
+  @Value("${elasticsearch.topic.personData.nrTestData}")
+  private int personDataNrTestData;
 
   @Value("${kafka.service.batch.scheduleMessages.enabled}")
   private boolean scheduleMessagesEnabled;
@@ -45,6 +56,17 @@ public class SimpleProducerService {
       ? super Throwable> lambda) {
     CompletableFuture<SendResult<String, String>> futureResult = sendMessage(topic, message);
     futureResult.whenComplete(lambda);
+  }
+
+
+  public void createPersonTestData() {
+    log.info("Starting Process Sending PersonData to Topic: {}", personDataTopic);
+    for (int i = 0; i < personDataNrTestData; i++) {
+      PersonData personData = PersonDataFactory.createPersonData();
+      personData.setId(UUID.randomUUID().toString());
+      kafkaProducer.send(personDataTopic, "personDataTest", personData.toJson());
+    }
+    log.info("Ending Process Sending PersonData to Topic: {}", personDataTopic);
   }
 
   public void sendSimpleMessage() {

@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.Optional;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -29,13 +31,13 @@ public class PersonData {
   }
 
 
-  public static PersonData fromJson(String json) throws JsonProcessingException {
+  public static Optional<PersonData> fromJson(String json) {
     try {
       ObjectMapper objectMapper = new ObjectMapper();
-      return objectMapper.readValue(json, PersonData.class);
+      return Optional.of(objectMapper.readValue(json, PersonData.class));
     } catch (JsonProcessingException jsonProcessingException) {
       log.error("Error parsing from Json: {}", jsonProcessingException.getMessage());
-      throw jsonProcessingException;
+      return Optional.empty();
     }
   }
 
