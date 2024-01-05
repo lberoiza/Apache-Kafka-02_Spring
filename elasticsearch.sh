@@ -9,7 +9,7 @@ start_service() {
 clean_service() {
     # Lógica para detener el servicio
     echo "lLimpiando el servicio Elasticsearch..."
-    docker-compose -f docker-compose-elasticsearch.yml down -v
+    docker-compose -f docker-compose-elasticsearch.yml down
 }
 
 case "$1" in
